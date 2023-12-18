@@ -1,0 +1,91 @@
+.conversation_side_container {
+  padding: 0 50px;
+  height: 100%;
+}
+.hide_input {
+  display: none;
+}
+.search_bar_container {
+  display: flex;
+  box-sizing: border-box;
+  padding: 5px;
+}
+.search_container {
+  height: 2.4rem;
+  width: 100%;
+  background-color: #f3f3f5;
+  border-radius: 16px;
+
+}
+.search_dump_div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+}
+.search_icon {
+  width: 30px;
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: end;
+  align-content: center;
+
+}
+.conversation_template{
+    display: flex;
+    flex-direction: column;
+    height: 600px;
+}
+.input_messenger{
+    background-color: inherit;
+    outline: none;
+    border: none;
+    font-size: 16px;
+    height: 100%;
+    padding-left: 10px;
+    flex: 7;
+}
+.input_messenger::placeholder{
+    color: #a6a6a7;
+}
+.conversation_detail{
+    width: 100%;
+    height: 64px;
+    padding: 10px;
+    display: flex;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.active{
+    background-color: #f5f5f5;
+}
+.conversation_detail_image{
+    width: 48px;
+    height: 48px;
+    border-radius:100% ;
+}
+.conversation_detail_image img{
+    width: 48px;
+    height: 48px;
+    border-radius: inherit;
+    object-fit: cover;
+}
+.conversation_detail_content{
+    margin-left:10px ;
+}
+.add_icon {
+    width: 30px;
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    border-end-end-radius: 16px;
+    border-start-end-radius: 16px;
+    background-color: #77C6F4;
+    cursor: pointer;
+  }
