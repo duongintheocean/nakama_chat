@@ -17,60 +17,54 @@ export default function ConversationSide() {
   const handleSetup = async () => {
     const localStorageData = localStorage.getItem("session");
     if (localStorageData) {
-      const newSession: Session = JSON.parse(localStorageData);
-      if (
-        newSession &&
-        newSession.expires_at &&
-        newSession.expires_at < Date.now()
-      ) {
+      const storedSession: Session = JSON.parse(localStorageData);
+      if (storedSession && storedSession.expires_at && storedSession.expires_at < Date.now()) {
         try {
-          const data = await handleRefreshSession(newSession);
-          setSession(data);
-          const newListFriend = await handleTakeListFriend(data);
-          console.log(newListFriend, "<---- line 31");
-          if (!newListFriend.friends) {
-            return;
+          const refreshedSession = await handleRefreshSession(storedSession);
+          setSession(refreshedSession);
+          const newListFriend = await handleTakeListFriend(refreshedSession);
+          console.log(newListFriend,"<--- newListFriend");
+          
+          if (newListFriend.friends) {
+            setListFriend(newListFriend.friends);
           }
-          return setListFriend(newListFriend.friends);
         } catch (error) {
-          console.log(error);
+          console.error(error);
         }
       } else {
-        handleTakeListFriend(newSession);
-        setSession(newSession);
+        handleTakeListFriend(storedSession);
+        setSession(storedSession);
       }
     } else {
       navigate("/authen");
     }
   };
+
   useEffect(() => {
     handleSetup();
   }, []);
+
   const handleSubmitFriendRequest = async () => {
-    if (session !== undefined) {
-      try {
-        if (!session.expires_at) {
-          return navigate("/authen");
+    try {
+      if (!session || !session.expires_at || session.expires_at < Date.now()) {
+        if (!session) {
+          return
         }
-        if (session?.expires_at < Date.now()) {
-          const newSession = await handleRefreshSession(session);
-          setSession(newSession);
-          await handleAddFriendByName(newSession, userInput);
-          const newListFriend = await handleTakeListFriend(newSession);
-          if (!newListFriend.friends) {
-            return;
-          }
+        const newSession = await handleRefreshSession(session);
+        setSession(newSession);
+        const response = await handleAddFriendByName(newSession, userInput);
+        const newListFriend = await handleTakeListFriend(newSession);
+        if (newListFriend.friends) {
           setListFriend(newListFriend.friends);
-        } else {
-          await handleAddFriendByName(session, userInput);
         }
-        message.success("your friend request are sent");
-      } catch (error) {
-        message.error("this username is not exist");
-        console.log(error);
+        message.success("Your friend request has been sent");
+      } else {
+        await handleAddFriendByName(session, userInput);
+        message.success("Your friend request has been sent");
       }
-    } else {
-      navigate("/login");
+    } catch (error) {
+      message.error("This username does not exist");
+      console.error(error);
     }
   };
   return (
@@ -102,9 +96,9 @@ export default function ConversationSide() {
         </div>
       </div>
       <div className="conversation_template">
-        {/* {listFriend.map((element: any) => {
+        {listFriend.map((element: any) => {
           return <Conversation atr={element}></Conversation>;
-        })} */}
+        })}
       </div>
     </div>
   );

@@ -1,0 +1,32 @@
+.friend_request_container {
+  display: flex;
+}
+.friend_request_container span {
+  display: flex;
+  text-align: center;
+  margin-right: 10px;
+}
+
+.user_name {
+  flex: 3;
+}
+.default_avarta_in_request {
+  flex: 1;
+  height: 48px;
+}
+.default_avarta_in_request img {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  overflow: hidden;
+}
+.friend_request_actions {
+  flex: 2;
+}
+.friend_request_actions button{
+  flex: 2;
+  width: 48px;
+  height: 48px;
+  margin-right: 10px;
+  cursor: pointer;
+}

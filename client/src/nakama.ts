@@ -1,4 +1,5 @@
 import { Client, Session } from "@heroiclabs/nakama-js";
+import { message } from "antd";
 
 const serverKey = "defaultkey";
 const serverHost = "localhost"; // Change this to your Nakama server's address
@@ -65,23 +66,26 @@ export const handleTakeListRequestHasSent = (session: Session) => {
   const result = client.listFriends(session, 1, 20);
   return result;
 };
-export const handleTakeListReceived=(session: Session)=>{
+export const handleTakeListReceived = (session: Session) => {
   const result = client.listFriends(session, 2, 20);
   return result;
-}
+};
 export const handleTakeListFriend = (session: Session) => {
   const result = client.listFriends(session, 0, 20);
   return result;
 };
 export const handleDeleteFriendRelation = (ids: string[], session: Session) => {
   const result = client.deleteFriends(session, ids);
+  message.success("delete successfull");
   return result;
 };
-export const handleAceptFriendRequest = (ids: string[], session: Session) => {
+export const handleAcceptFriendRequest = (ids: string[], session: Session) => {
+  console.log(ids, session);
   const result = client.addFriends(session, ids);
+  message.success("you are friend now");
   return result;
 };
-export const handleBlockUser=(ids: string[], session: Session)=>{
+export const handleBlockUser = (ids: string[], session: Session) => {
   const result = client.blockFriends(session, ids);
   return result;
-}
+};

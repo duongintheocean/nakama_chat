@@ -72,7 +72,9 @@ export default function ListFriendRequest() {
         <div>
           <h4>Receive</h4>
           {requestReceives?.map((e) => {
-            return <FriendRequest atr={e}></FriendRequest>;
+            return (
+              <FriendRequest atr={e} afterAction={handleSetup}></FriendRequest>
+            );
           })}
         </div>
       </div>
